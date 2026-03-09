@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.metadata.name }}
+  namespace: {{ .Values.metadata.namespace }}
+  labels:
+    app: {{ .Values.metadata.labels.app }}
+spec:
+  replicas: {{ .Values.spec.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.metadata.labels.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.metadata.labels.app }}
+    spec:
+      containers:
+      - name: {{ .Values.metadata.name }}-container
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        stdin: true
+        tty: true
+        ports:
+        - containerPort: {{ .Values.container.port }}
+        env:
+        - name: HOST
+          value: {{ .Values.env.host | quote }}
+        - name: NODE_OPTIONS
+          value: {{ .Values.env.nodeOptions | quote }}

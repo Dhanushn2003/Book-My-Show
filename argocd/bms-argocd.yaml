@@ -1,23 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bms-app-argo
+  name: book-my-show
   namespace: argocd
 spec:
   project: default
+
   source:
-    repoURL: https://github.com/Dhanushn2003/Book-My-Show.git
-    path: bms-chart
-    targetRevision: HEAD
+    # GitHub Pages URL (Helm repository)
+    repoURL: https://Dhanushn2003.github.io/Book-My-Show
+    chart: bms-chart
+    # Deploy latest released chart version
+    targetRevision: "*"  # it will deploy the latest version of the chart available in the helm repository
     helm:
       valueFiles:
         - values.yaml
-      parameters:
-        - name: spec.replicas
-          value: "4"
+
   destination:
     server: https://kubernetes.default.svc
-    namespace: dhanush-ns
+    namespace: dhanush-ns 
+
   syncPolicy:
     automated:
       prune: true

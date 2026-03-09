@@ -1,0 +1,28 @@
+# Metadata
+metadata:
+  name: bms-app
+  namespace: dhanush-ns
+  labels:
+    app: bms
+
+# Image configuration
+image:
+  repository: dhanushn2003/book-my-show
+  tag: latest  
+  pullPolicy: IfNotPresent
+
+# Deployment Spec
+spec:
+  replicas: 4
+
+# Container ports and environment
+container:
+  port: 3000
+env:
+  host: "0.0.0.0"
+  nodeOptions: "--openssl-legacy-provider"
+
+# Service configuration
+service:
+  type: LoadBalancer
+  port: 80
