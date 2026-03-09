@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bms-app-argo
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Dhanushn2003/Book-My-Show.git
+    path: bms-chart
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+      parameters:
+        - name: spec.replicas
+          value: "4"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dhanush-ns
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
