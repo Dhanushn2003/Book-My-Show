@@ -9,9 +9,9 @@ spec:
   source:
     # GitHub Pages URL (Helm repository)
     repoURL: https://Dhanushn2003.github.io/Book-My-Show
-    chart: bms-chart
+    path: chart/bms-chart
     # Deploy latest released chart version
-    targetRevision: "*"  # it will deploy the latest version of the chart available in the helm repository
+    targetRevision: feature/dhanush-BMS  # it will deploy the latest version of the chart available in the helm repository
     helm:
       valueFiles:
         - values.yaml
